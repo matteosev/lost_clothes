@@ -1,0 +1,39 @@
+{
+  "textureAtlas": {
+    "texture": "chevalier_4.png",
+    "regionWidth": 35,
+    "regionHeight": 44
+  },
+  "cycles": {
+    "d_idle": {
+      "frames": [0]
+    },
+    "d_walking_1": {
+      "frames": [1]
+    },
+    "d_walking_2": {
+      "frames": [2]
+    },
+    "d_jumping_1": {
+      "frames": [3]
+    },
+    "d_jumping_2": {
+      "frames": [4]
+    },
+    "g_idle": {
+      "frames": [5]
+    },
+    "g_walking_1": {
+      "frames": [6]
+    },
+    "g_walking_2": {
+      "frames": [8]
+    },
+    "g_jumping_1": {
+      "frames": [7]
+    },
+    "animation9": {
+      "frames": [9]
+    }
+  }
+}

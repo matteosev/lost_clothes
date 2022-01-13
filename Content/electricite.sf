@@ -1,0 +1,57 @@
+{
+  "textureAtlas": {
+    "texture": "électricité.png",
+    "regionWidth": 23,
+    "regionHeight": 45
+  },
+  "cycles": {
+    "electricite_bas_1": {
+      "frames": [0]
+    },
+    "electricite_bas_2": {
+      "frames": [1]
+    },
+    "electricite_bas_3": {
+      "frames": [2]
+    },
+    "electricite_bas_4": {
+      "frames": [3]
+    },
+    "electricite_bas_5": {
+      "frames": [4]
+    },
+    "electricite_bas_6": {
+      "frames": [5]
+    },
+    "electricite_bas_7": {
+      "frames": [6]
+    },
+    "electricite_bas_8": {
+      "frames": [7]
+    },
+    "electricite_bas_9": {
+      "frames": [8]
+    },
+    "electricite_bas_10": {
+      "frames": [9]
+    },
+    "electricite_bas_11": {
+      "frames": [10]
+    },
+    "electricite_bas_12": {
+      "frames": [11]
+    },
+    "electricite_haut_1": {
+      "frames": []
+    },
+    "electricite_haut_2": {
+      "frames": [13]
+    },
+    "electricite_haut_3": {
+      "frames": [14]
+    },
+    "electricite_haut_4": {
+      "frames": [15]
+    }
+  }
+}

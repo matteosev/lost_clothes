@@ -1,0 +1,45 @@
+{
+  "textureAtlas": {
+    "texture": "bulle_eau.png",
+    "regionWidth": 32,
+    "regionHeight": 32
+  },
+  "cycles": {
+    "g_bulle_1": {
+      "frames": [0]
+    },
+    "g_bulle_2": {
+      "frames": [1]
+    },
+    "g_bulle_3": {
+      "frames": [2]
+    },
+    "g_bulle_4": {
+      "frames": [3]
+    },
+    "g_bulle_5": {
+      "frames": [4]
+    },
+    "g_bulle_6": {
+      "frames": [5]
+    },
+    "d_bulle_1": {
+      "frames": [6]
+    },
+    "d_bulle_2": {
+      "frames": [7]
+    },
+    "d_bulle_3": {
+      "frames": [8]
+    },
+    "d_bulle_4": {
+      "frames": [9]
+    },
+    "d_bulle_5": {
+      "frames": [10]
+    },
+    "d_bulle_6": {
+      "frames": [11]
+    }
+  }
+}

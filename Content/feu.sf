@@ -1,0 +1,21 @@
+{
+  "textureAtlas": {
+    "texture": "Feu.png",
+    "regionWidth": 23,
+    "regionHeight": 45
+  },
+  "cycles": {
+    "feu_1": {
+      "frames": [0]
+    },
+    "feu_2": {
+      "frames": [1]
+    },
+    "feu_3": {
+      "frames": [2]
+    },
+    "animation3": {
+      "frames": [3]
+    }
+  }
+}
