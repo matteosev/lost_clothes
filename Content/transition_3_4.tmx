@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="19" height="12" tilewidth="45" tileheight="45" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="briques sol (1)" tilewidth="45" tileheight="45" tilecount="42" columns="6">
+  <image source="briques sol.png" width="270" height="315"/>
+ </tileset>
+ <tileset firstgid="43" name="brique v finale" tilewidth="45" tileheight="45" tilecount="16" columns="4">
+  <image source="briques_fond.png" width="180" height="180"/>
+ </tileset>
+ <layer id="1" name="Calque de Tuiles 1" width="19" height="12">
+  <data encoding="csv">
+23,19,19,19,19,19,19,19,19,19,19,3,3,3,3,3,3,2147483655,4,
+49,49,49,49,50,49,49,49,49,49,49,43,43,43,43,43,43,4,4,
+49,50,49,49,49,49,49,49,43,43,43,43,43,43,43,43,43,4,4,
+49,51,49,49,51,49,49,51,49,43,45,43,43,45,44,43,45,4,4,
+49,49,49,49,49,49,49,49,49,49,43,43,43,43,43,43,43,4,4,
+49,50,49,49,49,49,49,49,49,43,43,43,43,44,43,43,43,43,43,
+49,49,49,49,49,50,49,49,43,43,43,43,43,43,43,43,44,43,43,
+2147483669,17,17,17,17,17,17,17,17,17,17,6,45,43,43,45,43,43,45,
+41,41,41,41,41,41,41,4,42,42,42,2,43,43,44,43,43,43,43,
+41,41,41,41,41,41,41,4,2,2,2,2,43,43,43,43,43,43,43,
+41,41,41,41,41,41,41,4,2,2,2,2,43,43,43,43,44,43,43,
+41,41,41,41,41,41,41,4,2,2,2,2147483653,1,1,1,1,1,1,1
+</data>
+ </layer>
+</map>
