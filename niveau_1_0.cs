@@ -25,6 +25,7 @@ namespace lost_clothes_code
         private TiledMapTileLayer _mapLayer;
 
         private const int HAUTEUR_PERSO = 45;
+        private const int LARGEUR_PERSO = 27;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _persoPosition;
@@ -81,6 +82,15 @@ namespace lost_clothes_code
             float walkSpeed = deltaSeconds * _vitessePerso;
             string sensHorizontal = "D";    // G = gauche, D = droite
             string sensVertical = "N";      // N = neutre, H = haut, B = bas
+            ushort txUp = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
+            ushort tyUp = (ushort)((_persoPosition.Y + HAUTEUR_PERSO / 2) / _tiledMap.TileHeight - 1); // tuile au-dessus
+            ushort txLeft = (ushort)((_persoPosition.X + LARGEUR_PERSO) / _tiledMap.TileWidth - 1); // tuile à gauche
+            ushort tyLeft = (ushort)(_persoPosition.Y / _tiledMap.TileHeight);
+            ushort txRight = (ushort)((_persoPosition.X - LARGEUR_PERSO) / _tiledMap.TileWidth + 1); // tuile à droite
+            ushort tyRight = (ushort)((_persoPosition.Y) / _tiledMap.TileHeight);
+            ushort txDown = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
+            ushort tyDown = (ushort)((_persoPosition.Y - HAUTEUR_PERSO / 2) / _tiledMap.TileHeight + 1); // tuile eu-dessous
+
 
             KeyboardState keyboardState = Keyboard.GetState();
 
@@ -111,7 +121,9 @@ namespace lost_clothes_code
                     }
                     _stopWatchMarche.Restart();
                 }
-                _persoPosition.X -= walkSpeed;
+
+                if (!IsCollision(txLeft, tyLeft))
+                    _persoPosition.X -= walkSpeed;
             }
             else if (keyboardState.IsKeyDown(Keys.Right))
             {
@@ -133,16 +145,17 @@ namespace lost_clothes_code
                     }
                     _stopWatchMarche.Restart();
                 }
-                _persoPosition.X += walkSpeed;
+
+                if (!IsCollision(txRight, tyRight))
+                    _persoPosition.X += walkSpeed;
             }
 
-            if (_stopWatchSaut.IsRunning)
+            if (_stopWatchSaut.IsRunning && !IsCollision(txUp, tyUp))
                 _persoPosition.Y -= walkSpeed;
-
-            ushort tx = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
-            ushort ty = (ushort)(_persoPosition.Y / _tiledMap.TileHeight + 1); //la tuile au-dessus en y
-
-            if (!IsCollision(tx, ty))
+            else
+                _stopWatchSaut.Reset();
+ 
+            if (!IsCollision(txDown, tyDown))
                 _persoPosition.Y += _stopWatchChute.ElapsedMilliseconds * walkSpeed / 600;
             else
             {
