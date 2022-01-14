@@ -57,8 +57,8 @@ namespace lost_clothes_code
 
         public override void Update(GameTime gametime)
         {
-           if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270 ) 
-                && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135))
+            if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270)
+                && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135));
 
             else
             {
