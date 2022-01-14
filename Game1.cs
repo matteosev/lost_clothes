@@ -160,6 +160,10 @@ namespace lost_clothes_code
             {
                 LoadScreen2();
             }
+            if(keyboardState.IsKeyDown(Keys.Z))
+            {
+                LoadScreenMenu();
+            }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
@@ -190,6 +194,10 @@ namespace lost_clothes_code
         private void LoadScreen2()
         {
             _screenManager.LoadScreen(new niveau_1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        private void LoadScreenMenu()
+        {
+            _screenManager.LoadScreen(new Menu(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
     }
 

@@ -1,0 +1,15 @@
+{
+  "textureAtlas": {
+    "texture": "jouer menu.png",
+    "regionWidth": 540,
+    "regionHeight": 270
+  },
+  "cycles": {
+    "sombre": {
+      "frames": [0]
+    },
+    "clair": {
+      "frames": [1]
+    }
+  }
+}
