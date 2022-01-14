@@ -146,7 +146,7 @@ namespace lost_clothes_code
             }
 
             keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Left))
+            if (keyboardState.IsKeyDown(Keys.Space))
             {
                 LoadScreen1();
             }

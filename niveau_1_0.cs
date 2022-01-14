@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Serialization;
@@ -60,7 +61,7 @@ namespace lost_clothes_code
         }
         public override void LoadContent()
         {
-            _tiledMap = Content.Load<TiledMap>("niveau 1-0");
+            _tiledMap = Content.Load<TiledMap>("map_1_0");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -74,6 +75,79 @@ namespace lost_clothes_code
 
         public override void Update(GameTime gametime)
         {
+            float deltaSeconds = (float)gametime.ElapsedGameTime.TotalSeconds;
+            float walkSpeed = deltaSeconds * _vitessePerso;
+            string sensHorizontal = "D";    // G = gauche, D = droite
+            string sensVertical = "N";      // N = neutre, H = haut, B = bas
+
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Up))
+            {
+                _stopWatchSaut.Start();
+                _stopWatchChute.Start();
+                sensVertical = "H";
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _vitesseMarche || _animationPerso.Substring(0, 1) == "d")
+                {
+                    if (sensVertical == "H")
+                    {
+                        if (_animationPerso == "g_jumping_2")
+                            _animationPerso = "g_jumping_1";
+                        else
+                            _animationPerso = "g_jumping_2";
+                    }
+                    else
+                    {
+                        if (_animationPerso == "g_walking_2")
+                            _animationPerso = "g_walking_1";
+                        else
+                            _animationPerso = "g_walking_2";
+                    }
+                    _stopWatchMarche.Restart();
+                }
+                _persoPosition.X -= walkSpeed;
+            }
+            else if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _vitesseMarche || _animationPerso.Substring(0, 1) == "g")
+                {
+                    if (sensVertical == "H")
+                    {
+                        if (_animationPerso == "d_jumping_2")
+                            _animationPerso = "d_jumping_1";
+                        else
+                            _animationPerso = "d_jumping_2";
+                    }
+                    else
+                    {
+                        if (_animationPerso == "d_walking_2")
+                            _animationPerso = "d_walking_1";
+                        else
+                            _animationPerso = "d_walking_2";
+                    }
+                    _stopWatchMarche.Restart();
+                }
+                _persoPosition.X += walkSpeed;
+            }
+
+            if (_stopWatchSaut.IsRunning)
+                _persoPosition.Y -= walkSpeed;
+
+            if (_persoPosition.Y < GraphicsDevice.Viewport.Height - HAUTEUR_PERSO / 2)
+                _persoPosition.Y += _stopWatchChute.ElapsedMilliseconds * walkSpeed / 600;
+            else
+            {
+                _persoPosition.Y = GraphicsDevice.Viewport.Height - HAUTEUR_PERSO / 2;
+                _stopWatchSaut.Reset();
+                _stopWatchChute.Reset();
+            }
+
+            _perso.Play(_animationPerso);
+            _perso.Update(deltaSeconds);
 
             _tiledMapRenderer.Update(gametime);
         }
