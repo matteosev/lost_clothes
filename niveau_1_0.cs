@@ -22,6 +22,8 @@ namespace lost_clothes_code
         private Game1 _myGame; // pour récuperer le jeu en cours
         private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
+        private TiledMapTileLayer _mapLayer;
+
         private const int HAUTEUR_PERSO = 45;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -47,7 +49,7 @@ namespace lost_clothes_code
             // TODO: Add your initialization logic here
 
             _persoPosition.X = 100;
-            _persoPosition.Y = 400;
+            _persoPosition.Y = 300;
             _vitessePerso = 200;
             _vitesseMarche = 2;
             _stopWatchMarche = new Stopwatch();
@@ -56,12 +58,12 @@ namespace lost_clothes_code
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
             _positionTexte = new Vector2(0, 0);
-
             base.Initialize();
         }
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("map_1_0");
+            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -137,11 +139,13 @@ namespace lost_clothes_code
             if (_stopWatchSaut.IsRunning)
                 _persoPosition.Y -= walkSpeed;
 
-            if (_persoPosition.Y < GraphicsDevice.Viewport.Height - HAUTEUR_PERSO / 2)
+            ushort tx = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
+            ushort ty = (ushort)(_persoPosition.Y / _tiledMap.TileHeight + 1); //la tuile au-dessus en y
+
+            if (!IsCollision(tx, ty))
                 _persoPosition.Y += _stopWatchChute.ElapsedMilliseconds * walkSpeed / 600;
             else
             {
-                _persoPosition.Y = GraphicsDevice.Viewport.Height - HAUTEUR_PERSO / 2;
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
@@ -155,14 +159,20 @@ namespace lost_clothes_code
         public override void Draw(GameTime gametime)
         {
             _myGame.GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            
             _myGame.SpriteBatch.Begin();
             _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _persoPosition);
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
+        }
+
+        private bool IsCollision(ushort x, ushort y)
+        {
+            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 0 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
+                return true;
+ 
+            return false;
         }
 
     }

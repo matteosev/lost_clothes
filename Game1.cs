@@ -6,6 +6,7 @@ using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Tiled;
 using System.Diagnostics;
 
 namespace lost_clothes_code
@@ -53,7 +54,6 @@ namespace lost_clothes_code
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
             _positionTexte = new Vector2(0, 0);
-
             base.Initialize();
         }
 
