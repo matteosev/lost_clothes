@@ -18,6 +18,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin bulle_eau.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:bulle_eau.png
+
 #begin chevalier_0.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -89,4 +101,14 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:map_1_0.tmx
+
+#begin map_1_1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map_1_1.tmx
+
+#begin map_3_1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:map_3_1.tmx
 

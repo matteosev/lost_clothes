@@ -3,18 +3,26 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Screens;
-using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Text;
+using Color = Microsoft.Xna.Framework.Color;
+
 
 namespace lost_clothes_code
 {
-    public class Game1 : Game
+    public class niveau_1_1 : GameScreen
     {
+        private Game1 _myGame; // pour récuperer le jeu en cours
+        private TiledMap _tiledMap;
+        private TiledMapRenderer _tiledMapRenderer;
         private const int HAUTEUR_PERSO = 45;
-        private const int HAUTEUR_FENETRE = 450;
-        private const int LARGEUR_FENETRE = 765;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _persoPosition;
@@ -25,26 +33,26 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
+        private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
         private SpriteFont _font;
         private Vector2 _positionTexte;
-        private readonly ScreenManager _screenManager;
-        public SpriteBatch SpriteBatch { get => _spriteBatch; set => _spriteBatch = value; }
-
-        public Game1()
+        private AnimatedSprite _bulle;
+        private Vector2 _bullePosition;
+        private string _animationBulle;
+        public niveau_1_1(Game1 game) : base(game)
         {
-            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            _screenManager = new ScreenManager();
-            Components.Add(_screenManager);
+            _myGame = game;
         }
 
-        protected override void Initialize()
+        public override void Initialize()
         {
             // TODO: Add your initialization logic here
 
             _persoPosition.X = 100;
-            _persoPosition.Y = 400;
+            _persoPosition.Y = 375;
+            _bullePosition.X = 400;
+            _bullePosition.Y = 100;
             _vitessePerso = 200;
             _vitesseMarche = 2;
             _stopWatchMarche = new Stopwatch();
@@ -53,34 +61,29 @@ namespace lost_clothes_code
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
             _positionTexte = new Vector2(0, 0);
+            _animationBulle = "d_bulle_1";
 
             base.Initialize();
         }
-
-        protected override void LoadContent()
+        public override void LoadContent()
         {
+            _tiledMap = Content.Load<TiledMap>("map_1_1");
+            _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
+            SpriteSheet spriteSheete = Content.Load<SpriteSheet>("bulle_eau.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
+            _bulle = new AnimatedSprite(spriteSheete);
             _font = Content.Load<SpriteFont>("font");
+
         }
 
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gametime)
         {
-            _graphics.PreferredBackBufferHeight = HAUTEUR_FENETRE;
-            _graphics.PreferredBackBufferWidth = LARGEUR_FENETRE;
-            _graphics.ApplyChanges();
-
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
-            float deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float deltaSeconds = (float)gametime.ElapsedGameTime.TotalSeconds;
             float walkSpeed = deltaSeconds * _vitessePerso;
             string sensHorizontal = "D";    // G = gauche, D = droite
             string sensVertical = "N";      // N = neutre, H = haut, B = bas
@@ -151,46 +154,46 @@ namespace lost_clothes_code
                 _stopWatchChute.Reset();
             }
 
-            keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Space))
+            if (_bullePosition.X > _persoPosition.X)
             {
-                LoadScreen1();
+                _bullePosition.X = _bullePosition.X - 1;
+                _animationBulle = "g_bulle_1";
             }
-            if (keyboardState.IsKeyDown(Keys.A))
+            else
             {
-                LoadScreen2();
+                _bullePosition.X = _bullePosition.X + 1;
+                _animationBulle = "d_bulle_1";
+            }
+
+            if (_bullePosition.Y > _persoPosition.Y + 15)
+            {
+                _bullePosition.Y = _bullePosition.Y - 1;
+            }
+            else
+            {
+                _bullePosition.Y = _bullePosition.Y + 1;
             }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
-
-            base.Update(gameTime);
+            _bulle.Play(_animationBulle);
+            _bulle.Update(gametime);
+            _tiledMapRenderer.Update(gametime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gametime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            _myGame.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
 
+            _myGame.SpriteBatch.Begin();
+            _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _persoPosition);
-            _spriteBatch.DrawString(_font, $"_stopWatchMarche : {_stopWatchMarche.ElapsedMilliseconds} " +
-                $"_stopWatchSaut {_stopWatchSaut.ElapsedMilliseconds} " +
-                $"_stopWatchChute {_stopWatchChute.ElapsedMilliseconds}" +
-                $"_persoPosition.y {_persoPosition.Y}", _positionTexte, Color.White);
+            _spriteBatch.Draw(_bulle, _bullePosition);
             _spriteBatch.End();
+            _myGame.SpriteBatch.End();
+        }
 
-            base.Draw(gameTime);
-        }
-        private void LoadScreen1()
-        {
-            _screenManager.LoadScreen(new niveau_1_0(this), new FadeTransition(GraphicsDevice, Color.Black));
-        }
-        private void LoadScreen2()
-        {
-            _screenManager.LoadScreen(new niveau_1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
-        }
     }
-
 }
