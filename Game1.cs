@@ -13,6 +13,8 @@ namespace lost_clothes_code
     public class Game1 : Game
     {
         private const int HAUTEUR_PERSO = 45;
+        private const int HAUTEUR_FENETRE = 450;
+        private const int LARGEUR_FENETRE = 765;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _persoPosition;
@@ -23,7 +25,6 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
-        private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
         private SpriteFont _font;
         private Vector2 _positionTexte;
         private readonly ScreenManager _screenManager;
@@ -69,6 +70,11 @@ namespace lost_clothes_code
 
         protected override void Update(GameTime gameTime)
         {
+            _graphics.PreferredBackBufferHeight = HAUTEUR_FENETRE;
+            _graphics.PreferredBackBufferWidth = LARGEUR_FENETRE;
+            _graphics.ApplyChanges();
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
