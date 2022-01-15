@@ -187,7 +187,7 @@ namespace lost_clothes_code
 
             base.Draw(gameTime);
         }
-        private void LoadScreen1()
+        public void LoadScreen1()
         {
             _screenManager.LoadScreen(new niveau_1_0(this), new FadeTransition(GraphicsDevice, Color.Black));
         }

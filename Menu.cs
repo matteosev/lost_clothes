@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
@@ -29,6 +30,7 @@ namespace lost_clothes_code
         private Vector2 _jouerPosition;
         private AnimatedSprite _jouer;
         private string _jouerAnimation;
+        private readonly ScreenManager _screenManager;
         public Menu(Game1 game) : base(game)
         {
             Content.RootDirectory = "Content";
@@ -56,9 +58,22 @@ namespace lost_clothes_code
         }
 
         public override void Update(GameTime gametime)
+<<<<<<< HEAD
+        {
+           if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270 ) 
+                && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135))
+            {
+                _jouerAnimation = "clair";
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    _myGame.LoadScreen1();
+                }
+            }
+=======
         {
             if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270)
                 && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135));
+>>>>>>> dfb46127679e59b8d87c7dc2ccab2b17d24c79da
 
             else
             {
@@ -68,6 +83,7 @@ namespace lost_clothes_code
             _jouer.Update(gametime);
             _tiledMapRenderer.Update(gametime);
 
+            
         }
 
         public override void Draw(GameTime gametime)
