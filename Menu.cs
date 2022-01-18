@@ -47,7 +47,7 @@ namespace lost_clothes_code
         }
         public override void LoadContent()
         {
-            _tiledMap = Content.Load<TiledMap>("ecran_acceuil");
+            _tiledMap = Content.Load<TiledMap>("Maps/ecran_acceuil");
             _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
