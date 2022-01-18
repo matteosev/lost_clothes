@@ -17,7 +17,7 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace lost_clothes_code
 {
-    public class niveau_1_4 : GameScreen
+    public class niveau_5_4 : GameScreen
     {
         private Game1 _myGame; // pour récuperer le jeu en cours
 
@@ -41,12 +41,7 @@ namespace lost_clothes_code
         private string _animationPerso;
         private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
 
-        private Vector2 _itemPosition;
-        private AnimatedSprite _item;
-        private string _itemAnimation;
-        private Stopwatch _stopWatchItem;
-
-        public niveau_1_4(Game1 game) : base(game)
+        public niveau_5_4(Game1 game) : base(game)
         {
             Content.RootDirectory = "Content";
             _myGame = game;
@@ -65,17 +60,11 @@ namespace lost_clothes_code
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
-
-            _itemPosition.X = 450;
-            _itemPosition.Y = 385;
-            _itemAnimation = ("1");
-            _stopWatchItem = new Stopwatch();
-
             base.Initialize();
         }
         public override void LoadContent()
         {
-            _tiledMap = Content.Load<TiledMap>("Maps/transition_1_2");
+            _tiledMap = Content.Load<TiledMap>("Maps/transition_fin");
             _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -84,9 +73,6 @@ namespace lost_clothes_code
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-
-            SpriteSheet spriteSheetItem = Content.Load<SpriteSheet>("item_1.sf", new JsonContentLoader());
-            _item = new AnimatedSprite(spriteSheetItem);
 
         }
 
@@ -114,8 +100,6 @@ namespace lost_clothes_code
                 _stopWatchChute.Start();
                 sensVertical = "H";
             }
-
-            _stopWatchItem.Start();
 
             if (keyboardState.IsKeyDown(Keys.Left))
             {
@@ -180,40 +164,14 @@ namespace lost_clothes_code
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
-                _myGame.LoadScreen2_1();
-            }
-            if (_stopWatchItem.ElapsedMilliseconds >= 200)
-            {
-                if (_itemAnimation == "1")
-                {
-                    _itemAnimation = "2";
-                }
-                else if (_itemAnimation == "2")
-                {
-                    _itemAnimation = "3";
-                }
-                else if (_itemAnimation == "3")
-                {
-                    _itemAnimation = "4";
-                }
-                else if (_itemAnimation == "4")
-                {
-                    _itemAnimation = "5";
-                }
-                else if (_itemAnimation == "5")
-                {
-                    _itemAnimation = "1";
-                }
-                _stopWatchItem.Reset();
+                _myGame.LoadScreenMenu();
             }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
 
-            _item.Play(_itemAnimation);
-            _item.Update(gametime);
-
             _tiledMapRenderer.Update(gametime);
+
         }
 
         public override void Draw(GameTime gametime)
@@ -223,7 +181,6 @@ namespace lost_clothes_code
             _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _persoPosition);
-            _spriteBatch.Draw(_item, _itemPosition);
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
         }

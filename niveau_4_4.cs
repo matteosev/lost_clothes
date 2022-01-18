@@ -164,7 +164,7 @@ namespace lost_clothes_code
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
-                _myGame.LoadScreenMenu();
+                _myGame.LoadScreen5_1();
             }
 
             _perso.Play(_animationPerso);

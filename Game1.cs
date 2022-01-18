@@ -260,6 +260,22 @@ namespace lost_clothes_code
         {
             _screenManager.LoadScreen(new niveau_4_4(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
+        public void LoadScreen5_1()
+        {
+            _screenManager.LoadScreen(new niveau_5_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen5_2()
+        {
+            _screenManager.LoadScreen(new niveau_5_2(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen5_3()
+        {
+            _screenManager.LoadScreen(new niveau_5_3(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen5_4()
+        {
+            _screenManager.LoadScreen(new niveau_5_4(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
         public void LoadScreenMenu()
         {
             _screenManager.LoadScreen(new Menu(this), new FadeTransition(GraphicsDevice, Color.Black));
