@@ -20,14 +20,17 @@ namespace lost_clothes_code
     public class niveau_1_0 : GameScreen
     {
         private Game1 _myGame; // pour récuperer le jeu en cours
-        private TiledMap _tiledMap;
+
+        private TiledMap _tiledMap; // pour les collisions et generer la map
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
 
         private const int HAUTEUR_PERSO = 45;
         private const int LARGEUR_PERSO = 27;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
         private Vector2 _persoPosition;
         private AnimatedSprite _perso;
         private int _vitessePerso;
@@ -37,8 +40,7 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
         private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
-        private SpriteFont _font;
-        private Vector2 _positionTexte;
+
         public niveau_1_0(Game1 game) : base(game)
         {
             Content.RootDirectory = "Content";
@@ -58,7 +60,6 @@ namespace lost_clothes_code
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
-            _positionTexte = new Vector2(0, 0);
             base.Initialize();
         }
         public override void LoadContent()
@@ -72,7 +73,6 @@ namespace lost_clothes_code
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-            _font = Content.Load<SpriteFont>("font");
 
         }
 
@@ -162,11 +162,16 @@ namespace lost_clothes_code
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
+            if (keyboardState.IsKeyDown(Keys.Down))
+            {
+                _myGame.LoadScreen1_1();
+            }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
 
             _tiledMapRenderer.Update(gametime);
+            
         }
 
         public override void Draw(GameTime gametime)

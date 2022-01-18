@@ -6,7 +6,7 @@
  <tileset firstgid="43" name="brique v finale" tilewidth="45" tileheight="45" tilecount="16" columns="4">
   <image source="briques_fond.png" width="180" height="180"/>
  </tileset>
- <layer id="1" name="Calque de Tuiles 1" width="19" height="12">
+ <layer id="1" name="briques" width="19" height="12">
   <data encoding="csv">
 23,19,19,19,19,19,19,19,19,19,19,3,3,3,3,3,3,2147483655,4,
 49,49,49,49,50,49,49,49,49,49,49,43,43,43,43,43,43,4,4,

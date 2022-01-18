@@ -9,7 +9,7 @@
  <tileset firstgid="59" name="New Piskel" tilewidth="45" tileheight="45" tilecount="16" columns="4">
   <image source="decor.png" width="180" height="180"/>
  </tileset>
- <layer id="1" name="Calque de Tuiles 1" width="19" height="12">
+ <layer id="1" name="briques" width="19" height="12">
   <data encoding="csv">
 35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,2147483687,2147483687,
 7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,36,36,
@@ -25,7 +25,7 @@
 2147483685,33,57,57,57,57,57,57,57,57,57,57,57,57,57,57,33,33,37
 </data>
  </layer>
- <layer id="2" name="Calque de Tuiles 2" width="19" height="12">
+ <layer id="2" name="obstacles" width="19" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

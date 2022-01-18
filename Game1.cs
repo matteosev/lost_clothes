@@ -154,16 +154,21 @@ namespace lost_clothes_code
             keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Space))
             {
-                LoadScreen1();
+                LoadScreen1_0();
             }
             if (keyboardState.IsKeyDown(Keys.A))
             {
-                LoadScreen2();
+                LoadScreen1_1();
             }
             if(keyboardState.IsKeyDown(Keys.Z))
             {
                 LoadScreenMenu();
             }
+            if (keyboardState.IsKeyDown(Keys.P))
+            {
+                LoadScreen4_1();
+            }
+
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
@@ -187,18 +192,79 @@ namespace lost_clothes_code
 
             base.Draw(gameTime);
         }
-        public void LoadScreen1()
+        public void LoadScreen1_0()
         {
             _screenManager.LoadScreen(new niveau_1_0(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreen2()
+        public void LoadScreen1_1()
         {
-            _screenManager.LoadScreen(new niveau_1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+            _screenManager.LoadScreen(new niveau1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
-        private void LoadScreenMenu()
+        public void LoadScreen1_2()
+        {
+            _screenManager.LoadScreen(new niveau_1_2(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen1_3()
+        {
+            _screenManager.LoadScreen(new niveau_1_3(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen1_4()
+        {
+            _screenManager.LoadScreen(new niveau_1_4(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen2_1()
+        {
+            _screenManager.LoadScreen(new niveau_2_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen2_2()
+        {
+            _screenManager.LoadScreen(new niveau_2_2(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen2_3()
+        {
+            _screenManager.LoadScreen(new niveau_2_3(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen2_4()
+        {
+            _screenManager.LoadScreen(new niveau_2_4(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen3_1()
+        {
+            _screenManager.LoadScreen(new niveau_3_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen3_2()
+        {
+            _screenManager.LoadScreen(new niveau_3_2(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen3_3()
+        {
+            _screenManager.LoadScreen(new niveau_3_3(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen3_4()
+        {
+            _screenManager.LoadScreen(new niveau_3_4(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen4_1()
+        {
+            _screenManager.LoadScreen(new niveau_4_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen4_2()
+        {
+            _screenManager.LoadScreen(new niveau_4_2(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen4_3()
+        {
+            _screenManager.LoadScreen(new niveau_4_3(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreen4_4()
+        {
+            _screenManager.LoadScreen(new niveau_4_4(this), new FadeTransition(GraphicsDevice, Color.Black));
+        }
+        public void LoadScreenMenu()
         {
             _screenManager.LoadScreen(new Menu(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
+
     }
 
 }

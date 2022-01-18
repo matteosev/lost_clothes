@@ -10,11 +10,11 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:C:\Users\severinm\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
-/reference:C:\Users\severinm\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.dll
-/reference:C:\Users\severinm\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Graphics.dll
-/reference:C:\Users\severinm\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Tiled.dll
-/reference:C:\Users\severinm\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\Newtonsoft.Json.dll
+/reference:C:\Users\xhoud\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
+/reference:C:\Users\xhoud\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.dll
+/reference:C:\Users\xhoud\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Graphics.dll
+/reference:C:\Users\xhoud\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Tiled.dll
+/reference:C:\Users\xhoud\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\Newtonsoft.Json.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -90,11 +90,6 @@
 /processorParam:TextureFormat=Color
 /build:chevalier_4.png
 
-#begin ecran_acceuil.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:ecran_acceuil.tmx
-
 #begin font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -102,30 +97,93 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
-#begin jouer menu.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:jouer menu.png
-
-#begin map_1_0.tmx
+#begin Maps/ecran_acceuil.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:map_1_0.tmx
+/build:Maps/ecran_acceuil.tmx
 
-#begin map_1_1.tmx
+#begin Maps/map_1_0.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:map_1_1.tmx
+/build:Maps/map_1_0.tmx
 
-#begin map_3_1.tmx
+#begin Maps/map_1_1.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:map_3_1.tmx
+/build:Maps/map_1_1.tmx
+
+#begin Maps/map_1_2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_1_2.tmx
+
+#begin Maps/map_1_3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_1_3.tmx
+
+#begin Maps/map_2_1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_2_1.tmx
+
+#begin Maps/map_2_2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_2_2.tmx
+
+#begin Maps/map_2_3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_2_3.tmx
+
+#begin Maps/map_3_1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_3_1.tmx
+
+#begin Maps/map_3_2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_3_2.tmx
+
+#begin Maps/map_3_3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_3_3.tmx
+
+#begin Maps/map_4_1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_4_1.tmx
+
+#begin Maps/map_4_2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_4_2.tmx
+
+#begin Maps/map_4_3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map_4_3.tmx
+
+#begin Maps/transition_1_2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/transition_1_2.tmx
+
+#begin Maps/transition_2_3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/transition_2_3.tmx
+
+#begin Maps/transition_3_4.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/transition_3_4.tmx
+
+#begin Maps/transition_4_5.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/transition_4_5.tmx
 

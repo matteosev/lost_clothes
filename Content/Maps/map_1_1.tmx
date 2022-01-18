@@ -9,7 +9,7 @@
  <tileset firstgid="59" name="objets" tilewidth="45" tileheight="45" tilecount="16" columns="4">
   <image source="decor.png" width="180" height="180"/>
  </tileset>
- <layer id="1" name="Calque de Tuiles 1" width="19" height="12">
+ <layer id="1" name="briques" width="19" height="12">
   <data encoding="csv">
 31,27,27,27,27,27,27,27,2147483679,31,27,27,27,27,27,27,2147483679,28,28,
 26,52,52,52,52,52,52,52,26,28,52,52,52,52,52,52,28,28,28,
@@ -25,7 +25,7 @@
 25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,29
 </data>
  </layer>
- <layer id="3" name="Calque de Tuiles 2" width="19" height="12">
+ <layer id="3" name="obstacles" width="19" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
