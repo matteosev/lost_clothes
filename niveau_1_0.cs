@@ -41,13 +41,14 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _perso = new Perso(45, 27, 200, 2, 100, 100, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()));
+            _perso = new Perso(45, 27, 200, 2, 100, 100, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_1_0"));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             base.Initialize();
         }
+
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/map_1_0");
@@ -63,15 +64,6 @@ namespace lost_clothes_code
             float deltaSeconds = (float)gametime.ElapsedGameTime.TotalSeconds;
             int walkSpeed = (int)(deltaSeconds * _perso.VitesseDeplacement);
             string sensVertical = "N";      // N = neutre, H = haut, B = bas
-            ushort txUp = (ushort)(_perso.X / _tiledMap.TileWidth);
-            ushort tyUp = (ushort)((_perso.Y + _perso.Hauteur / 2) / _tiledMap.TileHeight - 1); // tuile au-dessus
-            ushort txLeft = (ushort)((_perso.X + _perso.Largeur) / _tiledMap.TileWidth - 1); // tuile à gauche
-            ushort tyLeft = (ushort)(_perso.Y / _tiledMap.TileHeight);
-            ushort txRight = (ushort)((_perso.X - _perso.Largeur) / _tiledMap.TileWidth + 1); // tuile à droite
-            ushort tyRight = (ushort)((_perso.Y) / _tiledMap.TileHeight);
-            ushort txDown = (ushort)(_perso.X / _tiledMap.TileWidth);
-            ushort tyDown = (ushort)((_perso.Y - _perso.Largeur / 2) / _tiledMap.TileHeight + 1); // tuile eu-dessous
-
 
             KeyboardState keyboardState = Keyboard.GetState();
 
@@ -103,7 +95,7 @@ namespace lost_clothes_code
                     _stopWatchMarche.Restart();
                 }
 
-                if (!IsCollision(txLeft, tyLeft))
+                if (!_perso.IsCollisionLeft())
                     _perso.X -= walkSpeed;
             }
             else if (keyboardState.IsKeyDown(Keys.Right))
@@ -127,16 +119,16 @@ namespace lost_clothes_code
                     _stopWatchMarche.Restart();
                 }
 
-                if (!IsCollision(txRight, tyRight))
+                if (!_perso.IsCollisionRight())
                     _perso.X += walkSpeed;
             }
 
-            if (_stopWatchSaut.IsRunning && !IsCollision(txUp, tyUp))
+            if (_stopWatchSaut.IsRunning && !_perso.IsCollisionUp())
                 _perso.Y -= walkSpeed;
             else
                 _stopWatchSaut.Reset();
  
-            if (!IsCollision(txDown, tyDown))
+            if (!_perso.IsCollisionDown())
                 _perso.Y += (int)(_stopWatchChute.ElapsedMilliseconds * walkSpeed / 600);
             else
             {
@@ -165,14 +157,5 @@ namespace lost_clothes_code
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
         }
-
-        private bool IsCollision(ushort x, ushort y)
-        {
-            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 0 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
-                return true;
- 
-            return false;
-        }
-
     }
 }
