@@ -58,7 +58,7 @@ namespace lost_clothes_code
         }
 
         public override void Update(GameTime gametime)
-//<<<<<<< HEAD
+
         {
            if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270 ) 
                 && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135))
@@ -69,11 +69,10 @@ namespace lost_clothes_code
                     _myGame.LoadScreen1_0();
                 }
             }
-//=======
-        
-            if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270)
-                && (Mouse.GetState().Y > _jouerPosition.Y - 135) && (Mouse.GetState().Y < _jouerPosition.Y + 135));
-//>>>>>> dfb46127679e59b8d87c7dc2ccab2b17d24c79da
+
+
+            if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270))
+                ;
 
             else
             {

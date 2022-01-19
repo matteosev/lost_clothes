@@ -39,7 +39,6 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
-        private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
 
         public niveau_1_0(Game1 game) : base(game)
         {

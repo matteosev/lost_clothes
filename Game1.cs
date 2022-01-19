@@ -16,6 +16,7 @@ namespace lost_clothes_code
         private const int HAUTEUR_PERSO = 45;
         private const int HAUTEUR_FENETRE = 450;
         private const int LARGEUR_FENETRE = 765;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Vector2 _persoPosition;
@@ -29,6 +30,8 @@ namespace lost_clothes_code
         private SpriteFont _font;
         private Vector2 _positionTexte;
         private readonly ScreenManager _screenManager;
+        private bool _menuStarted;
+
         public SpriteBatch SpriteBatch { get => _spriteBatch; set => _spriteBatch = value; }
 
         public Game1()
@@ -42,8 +45,10 @@ namespace lost_clothes_code
 
         protected override void Initialize()
         {
+
             // TODO: Add your initialization logic here
 
+            _menuStarted = false;
             _persoPosition.X = 100;
             _persoPosition.Y = 400;
             _vitessePerso = 200;
@@ -59,6 +64,7 @@ namespace lost_clothes_code
 
         protected override void LoadContent()
         {
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -73,6 +79,7 @@ namespace lost_clothes_code
             _graphics.PreferredBackBufferHeight = HAUTEUR_FENETRE;
             _graphics.PreferredBackBufferWidth = LARGEUR_FENETRE;
             _graphics.ApplyChanges();
+            /*
 
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -172,7 +179,12 @@ namespace lost_clothes_code
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
-
+            */
+            if (!_menuStarted)
+            {
+                _menuStarted = true;
+                LoadScreenMenu();
+            }
             base.Update(gameTime);
         }
 
@@ -183,11 +195,6 @@ namespace lost_clothes_code
             // TODO: Add your drawing code here
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_perso, _persoPosition);
-            _spriteBatch.DrawString(_font, $"_stopWatchMarche : {_stopWatchMarche.ElapsedMilliseconds} " +
-                $"_stopWatchSaut {_stopWatchSaut.ElapsedMilliseconds} " +
-                $"_stopWatchChute {_stopWatchChute.ElapsedMilliseconds}" +
-                $"_persoPosition.y {_persoPosition.Y}", _positionTexte, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
