@@ -30,6 +30,7 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
         private Perso _perso;
+        private Vector2 _persoPosition;
 
         public niveau_1_0(Game1 game) : base(game)
         {
@@ -41,7 +42,7 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _perso = new Perso(45, 27, 200, 2, 100, 100, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()));
+            _perso = new Perso(45, 27, 200, 2, 55, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();

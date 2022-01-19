@@ -25,21 +25,12 @@ namespace lost_clothes_code
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
 
-        private const int HAUTEUR_PERSO = 45;
-        private const int LARGEUR_PERSO = 27;
-
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private Vector2 _persoPosition;
-        private AnimatedSprite _perso;
-        private int _vitessePerso;
-        private int _vitesseMarche;     // nombre de pas par seconde pour l'_animationPerso
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
-        private string _animationPerso;
-        private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
+        private Perso _perso;
+        private Vector2 _persoPosition;
 
         public niveau_1_3(Game1 game) : base(game)
         {
@@ -51,15 +42,11 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _persoPosition.X = 130;
-            _persoPosition.Y = 380;
-            _vitessePerso = 200;
-            _vitesseMarche = 2;
+            _perso = new Perso(45, 27, 200, 2, 130, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
-            _animationPerso = "d_idle";
             base.Initialize();
         }
         public override void LoadContent()
@@ -70,26 +57,21 @@ namespace lost_clothes_code
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
-            _perso = new AnimatedSprite(spriteSheet);
-
         }
 
         public override void Update(GameTime gametime)
         {
             float deltaSeconds = (float)gametime.ElapsedGameTime.TotalSeconds;
-            float walkSpeed = deltaSeconds * _vitessePerso;
-            string sensHorizontal = "D";    // G = gauche, D = droite
+            int walkSpeed = (int)(deltaSeconds * _perso.VitesseDeplacement);
             string sensVertical = "N";      // N = neutre, H = haut, B = bas
-            ushort txUp = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
-            ushort tyUp = (ushort)((_persoPosition.Y + HAUTEUR_PERSO / 2) / _tiledMap.TileHeight - 1); // tuile au-dessus
-            ushort txLeft = (ushort)((_persoPosition.X + LARGEUR_PERSO) / _tiledMap.TileWidth - 1); // tuile à gauche
-            ushort tyLeft = (ushort)(_persoPosition.Y / _tiledMap.TileHeight);
-            ushort txRight = (ushort)((_persoPosition.X - LARGEUR_PERSO) / _tiledMap.TileWidth + 1); // tuile à droite
-            ushort tyRight = (ushort)((_persoPosition.Y) / _tiledMap.TileHeight);
-            ushort txDown = (ushort)(_persoPosition.X / _tiledMap.TileWidth);
-            ushort tyDown = (ushort)((_persoPosition.Y - HAUTEUR_PERSO / 2) / _tiledMap.TileHeight + 1); // tuile eu-dessous
+            ushort txUp = (ushort)(_perso.X / _tiledMap.TileWidth);
+            ushort tyUp = (ushort)((_perso.Y + _perso.Hauteur / 2) / _tiledMap.TileHeight - 1); // tuile au-dessus
+            ushort txLeft = (ushort)((_perso.X + _perso.Largeur) / _tiledMap.TileWidth - 1); // tuile à gauche
+            ushort tyLeft = (ushort)(_perso.Y / _tiledMap.TileHeight);
+            ushort txRight = (ushort)((_perso.X - _perso.Largeur) / _tiledMap.TileWidth + 1); // tuile à droite
+            ushort tyRight = (ushort)((_perso.Y) / _tiledMap.TileHeight);
+            ushort txDown = (ushort)(_perso.X / _tiledMap.TileWidth);
+            ushort tyDown = (ushort)((_perso.Y - _perso.Largeur / 2) / _tiledMap.TileHeight + 1); // tuile eu-dessous
 
 
             KeyboardState keyboardState = Keyboard.GetState();
@@ -103,74 +85,75 @@ namespace lost_clothes_code
 
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _vitesseMarche || _animationPerso.Substring(0, 1) == "d")
+                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _perso.VitesseMarche || _perso.Animation.Substring(0, 1) == "d")
                 {
                     if (sensVertical == "H")
                     {
-                        if (_animationPerso == "g_jumping_2")
-                            _animationPerso = "g_jumping_1";
+                        if (_perso.Animation == "g_jumping_2")
+                            _perso.Animation = "g_jumping_1";
                         else
-                            _animationPerso = "g_jumping_2";
+                            _perso.Animation = "g_jumping_2";
                     }
                     else
                     {
-                        if (_animationPerso == "g_walking_2")
-                            _animationPerso = "g_walking_1";
+                        if (_perso.Animation == "g_walking_2")
+                            _perso.Animation = "g_walking_1";
                         else
-                            _animationPerso = "g_walking_2";
+                            _perso.Animation = "g_walking_2";
                     }
                     _stopWatchMarche.Restart();
                 }
 
                 if (!IsCollision(txLeft, tyLeft))
-                    _persoPosition.X -= walkSpeed;
+                    _perso.X -= walkSpeed;
             }
             else if (keyboardState.IsKeyDown(Keys.Right))
             {
-                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _vitesseMarche || _animationPerso.Substring(0, 1) == "g")
+                if (_stopWatchMarche.ElapsedMilliseconds >= 1000.0 / _perso.VitesseMarche || _perso.Animation.Substring(0, 1) == "g")
                 {
                     if (sensVertical == "H")
                     {
-                        if (_animationPerso == "d_jumping_2")
-                            _animationPerso = "d_jumping_1";
+                        if (_perso.Animation == "d_jumping_2")
+                            _perso.Animation = "d_jumping_1";
                         else
-                            _animationPerso = "d_jumping_2";
+                            _perso.Animation = "d_jumping_2";
                     }
                     else
                     {
-                        if (_animationPerso == "d_walking_2")
-                            _animationPerso = "d_walking_1";
+                        if (_perso.Animation == "d_walking_2")
+                            _perso.Animation = "d_walking_1";
                         else
-                            _animationPerso = "d_walking_2";
+                            _perso.Animation = "d_walking_2";
                     }
                     _stopWatchMarche.Restart();
                 }
 
                 if (!IsCollision(txRight, tyRight))
-                    _persoPosition.X += walkSpeed;
+                    _perso.X += walkSpeed;
             }
 
             if (_stopWatchSaut.IsRunning && !IsCollision(txUp, tyUp))
-                _persoPosition.Y -= walkSpeed;
+                _perso.Y -= walkSpeed;
             else
                 _stopWatchSaut.Reset();
 
             if (!IsCollision(txDown, tyDown))
-                _persoPosition.Y += _stopWatchChute.ElapsedMilliseconds * walkSpeed / 600;
+                _perso.Y += (int)(_stopWatchChute.ElapsedMilliseconds * walkSpeed / 600);
             else
             {
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
-
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 _myGame.LoadScreen1_4();
             }
-            _perso.Play(_animationPerso);
-            _perso.Update(deltaSeconds);
+
+            _perso.AnimatedSprite.Play(_perso.Animation);
+            _perso.AnimatedSprite.Update(deltaSeconds);
 
             _tiledMapRenderer.Update(gametime);
+
         }
 
         public override void Draw(GameTime gametime)
@@ -179,7 +162,7 @@ namespace lost_clothes_code
             _myGame.SpriteBatch.Begin();
             _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_perso, _persoPosition);
+            _spriteBatch.Draw(_perso.AnimatedSprite, new Vector2(_perso.X, _perso.Y));
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
         }
