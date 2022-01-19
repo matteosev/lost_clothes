@@ -41,6 +41,10 @@ namespace lost_clothes_code
         private string _animationPerso;
         private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
 
+        private AnimatedSprite _bulle;
+        private Vector2 _bullePosition;
+        private string _animationBulle;
+
         public niveau_3_1(Game1 game) : base(game)
         {
             Content.RootDirectory = "Content";
@@ -51,8 +55,8 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _persoPosition.X = 100;
-            _persoPosition.Y = 300;
+            _persoPosition.X = 50;
+            _persoPosition.Y = 290;
             _vitessePerso = 200;
             _vitesseMarche = 2;
             _stopWatchMarche = new Stopwatch();
@@ -60,6 +64,10 @@ namespace lost_clothes_code
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
+
+            _bullePosition.X = 400;
+            _bullePosition.Y = 100;
+            _animationBulle = "d_bulle_1";
             base.Initialize();
         }
         public override void LoadContent()
@@ -73,6 +81,9 @@ namespace lost_clothes_code
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
+
+            SpriteSheet spriteSheete = Content.Load<SpriteSheet>("bulle_eau.sf", new JsonContentLoader());
+            _bulle = new AnimatedSprite(spriteSheete);
 
         }
 
@@ -162,13 +173,36 @@ namespace lost_clothes_code
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
+
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 _myGame.LoadScreen3_2();
             }
+            if (_bullePosition.X > _persoPosition.X)
+            {
+                _bullePosition.X = _bullePosition.X - 1;
+                _animationBulle = "g_bulle_1";
+            }
+            else
+            {
+                _bullePosition.X = _bullePosition.X + 1;
+                _animationBulle = "d_bulle_1";
+            }
+
+            if (_bullePosition.Y > _persoPosition.Y + 15)
+            {
+                _bullePosition.Y = _bullePosition.Y - 1;
+            }
+            else
+            {
+                _bullePosition.Y = _bullePosition.Y + 1;
+            }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
+
+            _bulle.Play(_animationBulle);
+            _bulle.Update(gametime);
 
             _tiledMapRenderer.Update(gametime);
 
@@ -181,13 +215,14 @@ namespace lost_clothes_code
             _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _persoPosition);
+            _spriteBatch.Draw(_bulle, _bullePosition);
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
         }
 
         private bool IsCollision(ushort x, ushort y)
         {
-            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 0 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
+            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 10 && _mapLayer.GetTile(x, y).GlobalIdentifier < 58)
                 return true;
 
             return false;

@@ -71,9 +71,6 @@ namespace lost_clothes_code
             }
 
 
-            if ((Mouse.GetState().X > _jouerPosition.X - 270) && (Mouse.GetState().X < _jouerPosition.X + 270))
-                ;
-
             else
             {
                 _jouerAnimation = "sombre";
