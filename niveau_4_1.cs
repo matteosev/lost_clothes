@@ -71,7 +71,7 @@ namespace lost_clothes_code
 
             // TODO: use this.Content to load your game content here
 
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_3.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
 
         }
@@ -187,7 +187,7 @@ namespace lost_clothes_code
 
         private bool IsCollision(ushort x, ushort y)
         {
-            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 0 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
+            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 15 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
                 return true;
 
             return false;

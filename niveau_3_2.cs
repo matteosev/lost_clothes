@@ -71,7 +71,7 @@ namespace lost_clothes_code
 
             // TODO: use this.Content to load your game content here
 
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
 
         }

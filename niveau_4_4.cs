@@ -249,7 +249,7 @@ namespace lost_clothes_code
 
         private bool IsCollision(ushort x, ushort y)
         {
-            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 0 && _mapLayer.GetTile(x, y).GlobalIdentifier < 43)
+            if (_mapLayer.GetTile(x, y).GlobalIdentifier > 15 && _mapLayer.GetTile(x, y).GlobalIdentifier < 50)
                 return true;
 
             return false;
