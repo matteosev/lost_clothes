@@ -52,7 +52,7 @@ namespace lost_clothes_code
             // TODO: Add your initialization logic here
 
             _persoPosition.X = 100;
-            _persoPosition.Y = 375;
+            _persoPosition.Y = 115;
             _bullePosition.X = 400;
             _bullePosition.Y = 100;
             _vitessePerso = 200;

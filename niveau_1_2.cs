@@ -49,8 +49,8 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _persoPosition.X = 100;
-            _persoPosition.Y = 300;
+            _persoPosition.X = 600;
+            _persoPosition.Y = 380;
             _vitessePerso = 200;
             _vitesseMarche = 2;
             _stopWatchMarche = new Stopwatch();

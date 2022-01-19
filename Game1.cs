@@ -59,6 +59,7 @@ namespace lost_clothes_code
 
         protected override void LoadContent()
         {
+            LoadScreenMenu();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -278,7 +279,7 @@ namespace lost_clothes_code
         }
         public void LoadScreenMenu()
         {
-            _screenManager.LoadScreen(new Menu(this), new FadeTransition(GraphicsDevice, Color.Black));
+            _screenManager.LoadScreen(new Menu(this));
         }
 
     }

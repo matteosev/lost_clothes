@@ -1,0 +1,27 @@
+{
+  "textureAtlas": {
+    "texture": "item_3.png",
+    "regionWidth": 20,
+    "regionHeight": 20
+  },
+  "cycles": {
+    "1": {
+      "frames": [0]
+    },
+    "2": {
+      "frames": [1]
+    },
+    "3": {
+      "frames": [2]
+    },
+    "4": {
+      "frames": [3]
+    },
+    "5": {
+      "frames": [4]
+    },
+    "6": {
+      "frames": [5]
+    }
+  }
+}

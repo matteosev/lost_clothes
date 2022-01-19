@@ -33,6 +33,7 @@ namespace lost_clothes_code
 
         private Vector2 _persoPosition;
         private AnimatedSprite _perso;
+        private AnimatedSprite _perso1;
         private int _vitessePerso;
         private int _vitesseMarche;     // nombre de pas par seconde pour l'_animationPerso
         private Stopwatch _stopWatchMarche;
@@ -40,6 +41,11 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
         private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
+
+        private Vector2 _itemPosition;
+        private AnimatedSprite _item;
+        private string _itemAnimation;
+        private Stopwatch _stopWatchItem;
 
         public niveau_3_4(Game1 game) : base(game)
         {
@@ -51,7 +57,7 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _persoPosition.X = 100;
+            _persoPosition.X = 90;
             _persoPosition.Y = 300;
             _vitessePerso = 200;
             _vitesseMarche = 2;
@@ -60,6 +66,12 @@ namespace lost_clothes_code
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
+
+            _itemPosition.X = 450;
+            _itemPosition.Y = 300;
+            _itemAnimation = ("1");
+            _stopWatchItem = new Stopwatch();
+
             base.Initialize();
         }
         public override void LoadContent()
@@ -71,8 +83,14 @@ namespace lost_clothes_code
 
             // TODO: use this.Content to load your game content here
 
-            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
+
+            SpriteSheet spriteSheetPerso = Content.Load<SpriteSheet>("chevalier_3.sf", new JsonContentLoader());
+            _perso1 = new AnimatedSprite(spriteSheetPerso);
+
+            SpriteSheet spriteSheetItem = Content.Load<SpriteSheet>("item_3.sf", new JsonContentLoader());
+            _item = new AnimatedSprite(spriteSheetItem);
 
         }
 
@@ -100,6 +118,8 @@ namespace lost_clothes_code
                 _stopWatchChute.Start();
                 sensVertical = "H";
             }
+
+            _stopWatchItem.Start();
 
             if (keyboardState.IsKeyDown(Keys.Left))
             {
@@ -162,16 +182,53 @@ namespace lost_clothes_code
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
-            if (keyboardState.IsKeyDown(Keys.Down))
+            if (_persoPosition.X >= 800)
             {
                 _myGame.LoadScreen4_1();
             }
+            if (_stopWatchItem.ElapsedMilliseconds >= 200)
+            {
+                if (_itemAnimation == "1")
+                {
+                    _itemAnimation = "2";
+                }
+                else if (_itemAnimation == "2")
+                {
+                    _itemAnimation = "3";
+                }
+                else if (_itemAnimation == "3")
+                {
+                    _itemAnimation = "4";
+                }
+                else if (_itemAnimation == "4")
+                {
+                    _itemAnimation = "5";
+                }
+                else if (_itemAnimation == "5")
+                {
+                    _itemAnimation = "6";
+                }
+                else if (_itemAnimation == "6")
+                {
+                    _itemAnimation = "1";
+                }
+                _stopWatchItem.Reset();
+            }
+            if (_persoPosition.X >= _itemPosition.X)
+            {
+                _perso = _perso1;
+                _itemPosition.X = -100;
+            }
+
+
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
 
-            _tiledMapRenderer.Update(gametime);
+            _item.Play(_itemAnimation);
+            _item.Update(gametime);
 
+            _tiledMapRenderer.Update(gametime);
         }
 
         public override void Draw(GameTime gametime)
@@ -181,6 +238,7 @@ namespace lost_clothes_code
             _tiledMapRenderer.Draw();
             _spriteBatch.Begin();
             _spriteBatch.Draw(_perso, _persoPosition);
+            _spriteBatch.Draw(_item, _itemPosition);
             _spriteBatch.End();
             _myGame.SpriteBatch.End();
         }
