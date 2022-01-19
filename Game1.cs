@@ -73,7 +73,7 @@ namespace lost_clothes_code
         }
         public void LoadScreen1_1()
         {
-            _screenManager.LoadScreen(new niveau1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
+            _screenManager.LoadScreen(new niveau_1_1(this), new FadeTransition(GraphicsDevice, Color.Black));
         }
         public void LoadScreen1_2()
         {

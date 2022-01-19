@@ -218,7 +218,9 @@ namespace lost_clothes_code
 
         public bool IsCollisionUp()
         {
-            if (this.briquesLayer.GetTile(this.TxUp, this.TyUp).GlobalIdentifier > 0 && this.briquesLayer.GetTile(this.TxUp, this.TyUp).GlobalIdentifier < 43)
+            TiledMapTile tileUp = this.briquesLayer.GetTile(this.TxUp, this.TyUp);
+
+            if (tileUp.GlobalIdentifier > 0 && tileUp.GlobalIdentifier < 43)
                 return true;
 
             return false;
@@ -226,7 +228,12 @@ namespace lost_clothes_code
 
         public bool IsCollisionLeft()
         {
-            if (this.briquesLayer.GetTile(this.TxLeft, this.TyLeft).GlobalIdentifier > 0 && this.briquesLayer.GetTile(this.TxLeft, this.TyLeft).GlobalIdentifier < 43)
+            if (this.X <= this.Largeur)
+                return true;
+
+            TiledMapTile tileLeft = this.briquesLayer.GetTile(this.TxLeft, this.TyLeft);
+
+            if (tileLeft.GlobalIdentifier > 0 && tileLeft.GlobalIdentifier < 43)
                 return true;
 
             return false;
@@ -234,7 +241,9 @@ namespace lost_clothes_code
 
         public bool IsCollisionRight()
         {
-            if (this.briquesLayer.GetTile(this.TxRight, this.TyRight).GlobalIdentifier > 0 && this.briquesLayer.GetTile(this.TxRight, this.TyRight).GlobalIdentifier < 43)
+            TiledMapTile tileRight = this.briquesLayer.GetTile(this.TxRight, this.TyRight);
+
+            if (tileRight.GlobalIdentifier > 0 && tileRight.GlobalIdentifier < 43)
                 return true;
 
             return false;
@@ -242,7 +251,9 @@ namespace lost_clothes_code
 
         public bool IsCollisionDown()
         {
-            if (this.briquesLayer.GetTile(this.TxDown, this.TyDown).GlobalIdentifier > 0 && this.briquesLayer.GetTile(this.TxDown, this.TyDown).GlobalIdentifier < 43)
+            TiledMapTile tileDown = this.briquesLayer.GetTile(this.TxDown, this.TyDown);
+
+            if (tileDown.GlobalIdentifier > 0 && tileDown.GlobalIdentifier < 43)
                 return true;
 
             return false;

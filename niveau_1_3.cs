@@ -7,11 +7,7 @@ using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Text;
 using Color = Microsoft.Xna.Framework.Color;
 
 
@@ -19,18 +15,14 @@ namespace lost_clothes_code
 {
     public class niveau_1_3 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer _mapLayer;
-
         private SpriteBatch _spriteBatch;
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
         private Sprite _perso;
-        private Vector2 _persoPosition;
 
         public niveau_1_3(Game1 game) : base(game)
         {
@@ -40,9 +32,6 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            _perso = new Perso(45, 27, 200, 2, 130, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
@@ -52,11 +41,10 @@ namespace lost_clothes_code
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/map_1_3");
-            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            _perso = new Sprite(45, 27, 200, 2, 130, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)

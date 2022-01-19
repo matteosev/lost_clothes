@@ -15,12 +15,10 @@ namespace lost_clothes_code
 {
     public class niveau_4_1 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
-
         private SpriteBatch _spriteBatch;
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
@@ -36,8 +34,6 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            _perso = new Sprite(45, 27, 200, 2, 10, 10, "d_idle", Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_4_1"));
-            _bulle = new Sprite(23, 45, 100, 2, 450, 250, "feu_1", Content.Load<SpriteSheet>("feu.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_4_1"));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
@@ -47,11 +43,11 @@ namespace lost_clothes_code
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/map_4_1");
-            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            _perso = new Sprite(45, 27, 200, 2, 10, 10, "d_idle", Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader()), _tiledMap);
+            _bulle = new Sprite(23, 45, 100, 2, 450, 250, "feu_1", Content.Load<SpriteSheet>("feu.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)

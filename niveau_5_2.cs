@@ -15,12 +15,10 @@ namespace lost_clothes_code
 {
     public class niveau_5_2 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
-
         private SpriteBatch _spriteBatch;
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
@@ -37,8 +35,6 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            _perso = new Sprite(45, 27, 200, 2, 100, 100, "d_idle", Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_5_2"));
-            _bulle = new Sprite(23, 45, 100, 2, 290, 290, "electricite_bas_1", Content.Load<SpriteSheet>("feu.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_5_2"));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
@@ -46,12 +42,15 @@ namespace lost_clothes_code
             _stopwatchItem = new Stopwatch();
             base.Initialize();
         }
+
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/map_5_2");
-            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _perso = new Sprite(45, 27, 200, 2, 100, 100, "d_idle", Content.Load<SpriteSheet>("chevalier_2.sf", new JsonContentLoader()), _tiledMap);
+            _bulle = new Sprite(23, 45, 100, 2, 290, 290, "electricite_bas_1", Content.Load<SpriteSheet>("feu.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)
@@ -120,7 +119,6 @@ namespace lost_clothes_code
             _bulle.AnimatedSprite.Update(gametime);
 
             _tiledMapRenderer.Update(gametime);
-
         }
 
         public override void Draw(GameTime gametime)

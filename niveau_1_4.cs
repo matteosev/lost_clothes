@@ -7,11 +7,7 @@ using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Text;
 using Color = Microsoft.Xna.Framework.Color;
 
 
@@ -19,19 +15,13 @@ namespace lost_clothes_code
 {
     public class niveau_1_4 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-        private TiledMapTileLayer _mapLayer;
-
         private SpriteBatch _spriteBatch;
-
-        private AnimatedSprite _perso1;
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
         private Stopwatch _stopWatchChute;
-
         private Sprite _perso;
         private Vector2 _itemPosition;
         private AnimatedSprite _item;
@@ -46,38 +36,32 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            _perso = new Sprite(45, 27, 200, 2, 90, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/map_1_4"));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
-
             _itemPosition.X = 450;
             _itemPosition.Y = 385;
             _itemAnimation = ("1");
             _stopWatchItem = new Stopwatch();
-
             base.Initialize();
         }
 
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/transition_1_2");
-            _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
             SpriteSheet spriteSheetItem = Content.Load<SpriteSheet>("item_1.sf", new JsonContentLoader());
             _item = new AnimatedSprite(spriteSheetItem);
-
+            _perso = new Sprite(45, 27, 200, 2, 90, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)
         {
             Global.Update(gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
+            
             if (_perso.X >= 800)
             {
                 _myGame.LoadScreen2_1();
@@ -106,9 +90,10 @@ namespace lost_clothes_code
                 }
                 _stopWatchItem.Reset();
             }
+
             if (_perso.X >= _itemPosition.X)
             {
-                _perso.SpriteSheet = Content.Load<SpriteSheet>("chevalier_1.sf");
+                _perso.SpriteSheet = Content.Load<SpriteSheet>("chevalier_1.sf", new JsonContentLoader());
                 _perso.AnimatedSprite = new AnimatedSprite(_perso.SpriteSheet, "d_idle");
             }
 

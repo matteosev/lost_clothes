@@ -15,14 +15,11 @@ namespace lost_clothes_code
 {
     public class niveau_4_4 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         private Sprite _perso;
         private Sprite _perso1;
         private Stopwatch _stopWatchMarche;
@@ -41,7 +38,6 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            _perso = new Sprite(45, 27, 200, 2, 90, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_3.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/transition_4_5"));
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
@@ -63,6 +59,7 @@ namespace lost_clothes_code
             SpriteSheet spriteSheetItem = Content.Load<SpriteSheet>("item_4.sf", new JsonContentLoader());
             _item = new AnimatedSprite(spriteSheetItem);
 
+            _perso = new Sprite(45, 27, 200, 2, 90, 380, "d_idle", Content.Load<SpriteSheet>("chevalier_3.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)
@@ -107,7 +104,7 @@ namespace lost_clothes_code
             }
             if (_perso.X >= _itemPosition.X)
             {
-                _perso.SpriteSheet = Content.Load<SpriteSheet>("chevalier_4.sf", new JsonContentLoader()));
+                _perso.SpriteSheet = Content.Load<SpriteSheet>("chevalier_4.sf", new JsonContentLoader());
                 _perso.AnimatedSprite = new AnimatedSprite(_perso.SpriteSheet, "d_idle");
                 _itemPosition.X = -100;
             }

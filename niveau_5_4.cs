@@ -15,14 +15,11 @@ namespace lost_clothes_code
 {
     public class niveau_5_4 : GameScreen
     {
-        private Game1 _myGame; // pour récuperer le jeu en cours
-
-        private TiledMap _tiledMap; // pour les collisions et generer la map
+        private Game1 _myGame;
+        private TiledMap _tiledMap;
         private TiledMapRenderer _tiledMapRenderer;
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         private Sprite _perso;
         private Stopwatch _stopWatchMarche;
         private Stopwatch _stopWatchSaut;
@@ -36,19 +33,20 @@ namespace lost_clothes_code
 
         public override void Initialize()
         {
-            _perso = new Sprite(45, 27, 200, 2, 100, 300, "d_idle", Content.Load<SpriteSheet>("chevalier_4.sf", new JsonContentLoader()), Content.Load<TiledMap>("Maps/transition_fin"));
-
             _stopWatchMarche = new Stopwatch();
             _stopWatchMarche.Start();
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             base.Initialize();
         }
+
         public override void LoadContent()
         {
             _tiledMap = Content.Load<TiledMap>("Maps/transition_fin");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _perso = new Sprite(45, 27, 200, 2, 100, 300, "d_idle", Content.Load<SpriteSheet>("chevalier_4.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)
