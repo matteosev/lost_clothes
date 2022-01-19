@@ -66,7 +66,7 @@ namespace lost_clothes_code
                 _jouerAnimation = "clair";
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    _myGame.LoadScreen1_0();
+                    _myGame.LoadScreen1_1();
                 }
             }
 
