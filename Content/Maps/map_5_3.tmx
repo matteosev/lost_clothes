@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="19" height="12" tilewidth="45" tileheight="45" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="briques sol" tilewidth="45" tileheight="45" tilecount="42" columns="6">
+  <image source="briques sol.png" width="270" height="315"/>
+ </tileset>
+ <tileset firstgid="43" name="briques_fond" tilewidth="45" tileheight="45" tilecount="16" columns="4">
+  <image source="briques_fond.png" width="180" height="180"/>
+ </tileset>
+ <tileset firstgid="59" name="decor" tilewidth="45" tileheight="45" tilecount="16" columns="4">
+  <image source="decor.png" width="180" height="180"/>
+ </tileset>
+ <layer id="1" name="briques" width="19" height="12">
+  <data encoding="csv">
+35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,0,
+35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,0,
+35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,0,
+35,35,55,35,55,35,55,35,55,35,55,35,55,35,55,35,55,35,0,
+55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,0,
+55,55,55,57,55,55,55,57,55,55,55,57,55,55,55,57,55,55,0,
+55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,0,
+33,33,55,33,55,33,55,33,55,33,55,33,55,33,55,33,55,33,0,
+33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,0,
+33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,0,
+33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

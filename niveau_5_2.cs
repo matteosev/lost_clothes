@@ -17,17 +17,20 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace lost_clothes_code
 {
-    public class niveau_1_2 : GameScreen
+    public class niveau_5_2 : GameScreen
     {
         private Game1 _myGame; // pour récuperer le jeu en cours
-        private TiledMap _tiledMap;
+
+        private TiledMap _tiledMap; // pour les collisions et generer la map
         private TiledMapRenderer _tiledMapRenderer;
         private TiledMapTileLayer _mapLayer;
 
         private const int HAUTEUR_PERSO = 45;
         private const int LARGEUR_PERSO = 27;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
         private Vector2 _persoPosition;
         private AnimatedSprite _perso;
         private int _vitessePerso;
@@ -37,9 +40,8 @@ namespace lost_clothes_code
         private Stopwatch _stopWatchChute;
         private string _animationPerso;
         private int _dureeMaximaleSaut; // durée maximale de saut du perso en millisecondes
-        private SpriteFont _font;
-        private Vector2 _positionTexte;
-        public niveau_1_2(Game1 game) : base(game)
+
+        public niveau_5_2(Game1 game) : base(game)
         {
             Content.RootDirectory = "Content";
             _myGame = game;
@@ -49,8 +51,8 @@ namespace lost_clothes_code
         {
             // TODO: Add your initialization logic here
 
-            _persoPosition.X = 600;
-            _persoPosition.Y = 380;
+            _persoPosition.X = 100;
+            _persoPosition.Y = 300;
             _vitessePerso = 200;
             _vitesseMarche = 2;
             _stopWatchMarche = new Stopwatch();
@@ -58,12 +60,11 @@ namespace lost_clothes_code
             _stopWatchSaut = new Stopwatch();
             _stopWatchChute = new Stopwatch();
             _animationPerso = "d_idle";
-            _positionTexte = new Vector2(0, 0);
             base.Initialize();
         }
         public override void LoadContent()
         {
-            _tiledMap = Content.Load<TiledMap>("Maps/map_1_2");
+            _tiledMap = Content.Load<TiledMap>("Maps/map_5_2");
             _mapLayer = _tiledMap.GetLayer<TiledMapTileLayer>("briques");
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -72,7 +73,6 @@ namespace lost_clothes_code
 
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("chevalier_0.sf", new JsonContentLoader());
             _perso = new AnimatedSprite(spriteSheet);
-            _font = Content.Load<SpriteFont>("font");
 
         }
 
@@ -162,16 +162,16 @@ namespace lost_clothes_code
                 _stopWatchSaut.Reset();
                 _stopWatchChute.Reset();
             }
-
             if (keyboardState.IsKeyDown(Keys.Down))
             {
-                _myGame.LoadScreen1_3();
+                _myGame.LoadScreen5_3();
             }
 
             _perso.Play(_animationPerso);
             _perso.Update(deltaSeconds);
 
             _tiledMapRenderer.Update(gametime);
+
         }
 
         public override void Draw(GameTime gametime)
