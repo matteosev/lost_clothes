@@ -45,14 +45,14 @@ namespace lost_clothes_code
             _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _perso = new Sprite(45, 27, 200, 2, 130, 200, "d_idle", Content.Load<SpriteSheet>("chevalier_1.sf", new JsonContentLoader()), _tiledMap);
+            _perso = new Sprite(45, 27, 200, 2, 20, 200, "d_idle", Content.Load<SpriteSheet>("chevalier_1.sf", new JsonContentLoader()), _tiledMap);
         }
 
         public override void Update(GameTime gametime)
         {
-            Global.Update(gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
+            Global.Update(_myGame, gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (_perso.IsOnEscape)
             {
                 _myGame.LoadScreen2_2();
             }

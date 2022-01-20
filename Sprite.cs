@@ -16,6 +16,8 @@ namespace lost_clothes_code
         private AnimatedSprite animatedSprite;
         private TiledMap map;
         private TiledMapTileLayer briquesLayer;
+        private TiledMapTileLayer obstaclesLayer;
+
 
         public Sprite(int hauteur, int largeur, int vitesseDeplacement, int vitesseMarche, int x, int y, string animation, SpriteSheet spriteSheet, TiledMap map)
         {
@@ -30,6 +32,7 @@ namespace lost_clothes_code
             this.animatedSprite = new AnimatedSprite(spriteSheet, animation);
             this.map = map;
             this.briquesLayer = this.map.GetLayer<TiledMapTileLayer>("briques");
+            this.obstaclesLayer = this.map.GetLayer<TiledMapTileLayer>("obstacles");
         }
 
         public int Hauteur
@@ -252,13 +255,49 @@ namespace lost_clothes_code
         public bool IsCollisionDown()
         {
             TiledMapTile tileDown = this.briquesLayer.GetTile(this.TxDown, this.TyDown);
-
             if (tileDown.GlobalIdentifier > 0 && tileDown.GlobalIdentifier < 43)
+                return true;
+
+            if (this.obstaclesLayer is null)
+                return false;
+
+            tileDown = this.obstaclesLayer.GetTile(this.TxDown, this.TyDown);
+            if (tileDown.GlobalIdentifier >= 59 && tileDown.GlobalIdentifier <= 61)
                 return true;
 
             return false;
         }
 
+        public bool IsOnEscape
+        {
+            get
+            {
+                if (this.obstaclesLayer is null)
+                    return false;
 
+                TiledMapTile tile = this.obstaclesLayer.GetTile((ushort)(this.X / this.Map.TileWidth), (ushort)(this.Y / this.Map.TileHeight));
+
+                if (tile.GlobalIdentifier == 65 || tile.GlobalIdentifier == 66)
+                    return true;
+
+                return false;
+            }
+        }
+
+        public bool IsDying
+        {
+            get
+            {
+                if (this.obstaclesLayer is null)
+                    return false;
+
+                TiledMapTile tile = this.obstaclesLayer.GetTile((ushort)(this.X / this.Map.TileWidth), (ushort)(this.Y / this.Map.TileHeight));
+
+                if (tile.GlobalIdentifier == 72)
+                    return true;
+
+                return false;
+            }
+        }
     }
 }

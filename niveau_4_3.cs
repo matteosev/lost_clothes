@@ -52,7 +52,9 @@ namespace lost_clothes_code
 
         public override void Update(GameTime gametime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            Global.Update(_myGame, gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
+
+            if (_perso.IsOnEscape)
             {
                 _myGame.LoadScreen4_3();
             }

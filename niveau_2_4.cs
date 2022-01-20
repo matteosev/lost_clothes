@@ -63,7 +63,7 @@ namespace lost_clothes_code
 
         public override void Update(GameTime gametime)
         {
-            Global.Update(gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
+            Global.Update(_myGame, gametime, ref _perso, ref _stopWatchSaut, ref _stopWatchChute, ref _stopWatchMarche);
 
             if (_perso.X >= 800)
             {

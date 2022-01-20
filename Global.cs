@@ -7,7 +7,6 @@ namespace lost_clothes_code
 {
     public class Global
     {
-        
         public static bool IsCollision(TiledMapTileLayer mapLayer, ushort x, ushort y)
         {
             // détermine si la tuile en (x,y) est un obstacle (mur ou objet)
@@ -17,7 +16,7 @@ namespace lost_clothes_code
             return false;
         }
 
-        public static void Update(GameTime gametime, ref Sprite perso, ref Stopwatch stopWatchSaut, ref Stopwatch stopWatchChute, ref Stopwatch stopWatchMarche)
+        public static void Update(Game1 game, GameTime gametime, ref Sprite perso, ref Stopwatch stopWatchSaut, ref Stopwatch stopWatchChute, ref Stopwatch stopWatchMarche)
         {
             float deltaSeconds = (float)gametime.ElapsedGameTime.TotalSeconds;
             int walkSpeed = (int)(deltaSeconds * perso.VitesseDeplacement);
@@ -87,12 +86,19 @@ namespace lost_clothes_code
                 stopWatchSaut.Reset();
 
             if (!perso.IsCollisionDown())
+            {
                 perso.Y += (int)(stopWatchChute.ElapsedMilliseconds * walkSpeed / 600);
+                stopWatchChute.Start();
+            }
             else
             {
                 stopWatchSaut.Reset();
                 stopWatchChute.Reset();
             }
+
+            if (perso.IsDying)
+                game.LoadScreenMenu();
+                
 
             perso.AnimatedSprite.Play(perso.Animation);
             perso.AnimatedSprite.Update(deltaSeconds);
